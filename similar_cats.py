@@ -17,11 +17,11 @@ activity_range = 3
 def similar_cats():
     img = Image.open(request.files['file'])
     return 'Success!'
-    target_cats = [] 
+    target_cats = []
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
     color = request.args.get('color')
-    breed_score, breed = get_breed_and_score(filename) 
+    breed_score, breed = get_breed_and_score(filename)
 
     # Loop through all cats in the databse and find assign a score to each cat
     # Scores are scored as below:
@@ -42,7 +42,7 @@ def similar_cats():
         #   1. distance <= activity_range
         #   2. same color
         if distance <= activity_range and color == cat.color:
-            if breed == cat.breed: 
+            if breed == cat.breed:
                 if breed_score > 0.5 and cat.breed_score > 0.5:
                     # If every single criteria meets, then we assign
                     # a confidence score of 100
@@ -75,9 +75,9 @@ def similar_cats():
 
     # Sort those target cats according to its score
     target_cats.sort(key=lambda cat : cat[1])
-    
+
     # Serialize to JSON string then sends the response back
     jsonify([cat.__dict__ for cat in target_cats])
-            
+
 if __name__ == '__main__':
     app.run()
