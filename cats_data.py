@@ -2,12 +2,13 @@
 cats = []
 
 class Cat:
-    def __init__(self, id, name, color, breed, lon, lat, neutered=False,
+    def __init__(self, id, name, color, breed, breed_score, lon, lat, neutered=False,
             owner='None'):
         self.id = id
         self.name = name
         self.color=color
         self.breed = breed
+        self.breed_score = breed_score
         self.location = [(lon, lat)]
 
     # TODO: Add image to cat's info
@@ -27,13 +28,19 @@ class Cat:
         return len(self.location)
 
 def generate_data():
-    cat1 = Cat(1, 'sesame', 'black', 'domestic short hair', 123, 321)
-    cat2 = Cat(2, 'coconut', 'mixed', 'domestic short hair', 1115, 1116)
-    cat3 = Cat(3, 'pineapple', 'orange', 'tiger', 116, 118)
-    cat4 = Cat(4, 'fruit', 'grey', 'Russian Blue', 220, 220)
+    cat0 = Cat(0, 'plum', 'black', 'Bombay', breed_score=0.2, 981, 901)
+    cat1 = Cat(1, 'sesame', 'black', 'domestic short hair', breed_score=0.4, 123, 321)
+    cat2 = Cat(2, 'coconut', 'mixed', 'domestic short hair', breed_score=0.3, 1115, 1116)
+    cat3 = Cat(3, 'pineapple', 'orange', 'tiger', breed_score=0.6, 116, 118)
+    cat4 = Cat(4, 'fruit', 'grey', 'Russian Blue', breed_score=0.9, 220, 220)
+    cat5 = Cat(5, 'mochi', 'white', 'toy', breed_score=0.01, 210, 300)
+    cat6 = Cat(6, 'matcha', 'green', 'Egyptian Mau', breed_score=0.1, 400, 1190)
+    cat7 = Cat(7, 'Wiki', 'brown', 'Siamese', breed_score=0.2, 212, 499)
+    cat8 = Cat(8, 'chocho', 'white', 'Himalayan', breed_score=0.8, 987, 1190)
+    cat9 = Cat(9, 'pirate', 'oraange', 'Somali', breed_score=0.5, 524, 1029)
     cats.extend((cat1, cat2, cat3, cat4))
 
 """generate_data()
 cats[1].add_location_and_image(111, 222)
 cats[1].add_location_and_image(1000, 2000)
-cats[1].add_location_and_image(201, 108)"""å
+cats[1].add_location_and_image(201, 108)"""
