@@ -10,7 +10,15 @@ import UIKit
 
 let host = "127.0.0.1"
 
+extension NSMutableData {
+    func appendString(string: String) {
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        append(data!)
+    }
+}
+
 class Cat: NSObject {
+    var id:Int
     var name:String
     var color:String
     var locations:[(Double,Double)]
@@ -20,7 +28,8 @@ class Cat: NSObject {
     
     var images:[UIImage]
     
-    init(name:String, color:String, locations:[(Double,Double)],images:[UIImage], neutered:Bool, owner:String, breed:String) {
+    init(id:Int, name:String, color:String, locations:[(Double,Double)],images:[UIImage], neutered:Bool, owner:String, breed:String) {
+        self.id = id
         self.name = name
         self.color = color
         self.locations = locations
@@ -30,10 +39,146 @@ class Cat: NSObject {
         self.breed = breed
     }
     
+    //helpers for image---------
+    
+    static func generateBoundaryString() -> String {
+        return "Boundary-\(NSUUID().uuidString)"
+    }
+    
+    static func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: Data, boundary: String) -> Data {
+        let body = NSMutableData();
+        
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.appendString(string: "--\(boundary)\r\n")
+                body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendString(string: "\(value)\r\n")
+            }
+        }
+        
+        let filename = "user-profile.jpg"
+        
+        let mimetype = "image/jpg"
+        
+        body.appendString(string: "--\(boundary)\r\n")
+        body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
+        body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
+        body.append(imageDataKey)
+        body.appendString(string: "\r\n")
+        
+        body.appendString(string: "--\(boundary)--\r\n")
+        
+        return body as Data
+    }
+    
+    //------------
+    // helper for converting dict to cats
+    static func convert(result:Array<Dictionary<String, Any>>) -> [Cat] {
+        var cats : [Cat] = []
+        for r in result {
+            var neutered = false
+            if (r["neutered"]as!String=="true") {
+                neutered = true
+            }
+            let ldata = r["locations"] as! Array<Dictionary<String,String>>
+            var locations : [(Double, Double)] = []
+            for l in ldata {
+                locations.append((Double(l["lon"]!) ?? 0, Double(l["lat"]!) ?? 0))
+            }
+            let idata = r["images"] as! Array<String>
+            var images : [UIImage] = []
+            for i in idata {
+                let imageURL = URL(string: i)
+                let image = UIImage(data: try! Data(contentsOf: imageURL!))
+                images.append(image!)
+            }
+            let cat = Cat.init(id: Int(r["id"] as! String)!, name: r["name"] as! String, color: r["color"] as! String, locations: locations, images: images, neutered: neutered, owner: r["owner"] as! String,breed:r["breed"] as! String)
+            cats.append(cat)
+        }
+        return cats
+    }
+    //--------------------
+    
+    class func newcat(name:String,color:String,breed:String,lon:Double,lat:Double,completion : @escaping (Bool) -> Void) -> Void {
+        let params = [
+            "name": name,
+            "color": color,
+            "breed": breed,
+            "lon": String(lon),
+            "lat": String(lat)
+        ]
+    }
+    
+    class func confirm(id:Int,lon:Double,lat:Double,completion : @escaping (Bool) -> Void) -> Void {
+        let params = [
+            "id": String(id),
+            "lon": String(lon),
+            "lat": String(lat)
+        ]
+        let urlParams = params.compactMap({ (key, value) -> String in
+            return "\(key)=\(value)"
+        }).joined(separator: "&")
+        let url = URL(string: host+"/confirm?"+urlParams)
+        let session = URLSession(configuration: .default)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        let task = session.dataTask(with: request,completionHandler: {
+            (data, response, error) -> Void in
+            if (error != nil) {
+                print("Failed to confirm this cat!")
+                completion(false)
+                return
+            }
+            print("Confirmed this cat!")
+            completion(true)
+        })
+        task.resume()
+    }
+    
+    class func findsimilar(lon:Double,lat:Double,color:String,image:UIImage,completion : @escaping ([Cat]) -> Void) -> Void {
+        let params = [
+            "lon": String(lon),
+            "lat": String(lat),
+            "color": color
+        ]
+        let urlParams = params.compactMap({ (key, value) -> String in
+            return "\(key)=\(value)"
+        }).joined(separator: "&")
+        let url = URL(string: host+"/similarcats?"+urlParams)
+        let session = URLSession(configuration: .default)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        
+        let boundary = generateBoundaryString()
+        
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        let imageData = image.jpegData(compressionQuality: 1)
+        
+        request.httpBody = createBodyWithParameters(parameters: [:], filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
+        
+        //myActivityIndicator.startAnimating();
+        
+        let task = session.dataTask(with: request,completionHandler: {
+            (data, response, error) -> Void in
+            if (error != nil) {
+                print("Failed to load similar cats!")
+                return
+            }
+            print("Got similar cats!")
+            let result = try? JSONSerialization.jsonObject(with: data!, options: []) as! Array<Dictionary<String, Any>>
+            let cats : [Cat] = convert(result: result!)
+            
+            completion(cats)
+        })
+        task.resume()
+    }
+    
     class func allcats(lon:Double,lat:Double,completion : @escaping ([Cat]) -> Void) -> Void {
         let params = [
             "lon": String(lon),
-            "lat": String(lat)
+            "lat": String(lat),
+            "dis": "10"
         ]
         let urlParams = params.compactMap({ (key, value) -> String in
             return "\(key)=\(value)"
@@ -49,28 +194,9 @@ class Cat: NSObject {
                 return
             }
             print("Got our cats!")
-            var cats : [Cat] = []
+            
             let result = try? JSONSerialization.jsonObject(with: data!, options: []) as! Array<Dictionary<String, Any>>
-            for r in result! {
-                var neutered = false
-                if (r["neutered"]as!String=="true") {
-                    neutered = true
-                }
-                let ldata = r["locations"] as! Array<Dictionary<String,String>>
-                var locations : [(Double, Double)] = []
-                for l in ldata {
-                    locations.append((Double(l["lon"]!) ?? 0, Double(l["lat"]!) ?? 0))
-                }
-                let idata = r["images"] as! Array<String>
-                var images : [UIImage] = []
-                for i in idata {
-                    let imageURL = URL(string: i)
-                    let image = UIImage(data: try! Data(contentsOf: imageURL!))
-                    images.append(image!)
-                }
-                let cat = Cat.init(name: r["name"] as! String, color: r["color"] as! String, locations: locations, images: images, neutered: neutered, owner: r["owner"] as! String,breed:r["breed"] as! String)
-                cats.append(cat)
-            }
+            let cats : [Cat] = convert(result: result!)
             
             completion(cats)
         }

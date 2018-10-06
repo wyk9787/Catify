@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "catbreedrecognizer",
+  "private_key_id": "c7f6c9bd98ac003d8deded975f5d37f19db3c4b6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDoWS7tnUVcFntn\nXA/SxngfxxEvnMQchVSAZNKIEUEZtK1i/IhIM7JvmubKXy4O+mGZ1HK/DXO3HL2b\n49KmhEBh3haSPgmePotjgSuc83y7h3YapLhVwClhYt4qmtn+cL7TOkaRGIDWlbIY\nU3nifZ+4sVCxMTyROI71lilSpt1tfOlAPHfNtNOzKP9zEWXw5OWv1d1LzBKOemcY\n71LC9KwSweu+03fyrGs4RFOPdb3QJi095aDiOAS1K0XpXMGiYDX3gesPyfD4u7NH\nBlGmy3wb1+A/XsnGuXiZfX4POeXyr6ypnuepdbLjOFj9G1e2C/B3H8OuDIqQFXQH\nP708IQS/AgMBAAECggEACqNlYKpzbd9MUH6ImEVPZAprS7DJJz0mPKgLyQBxPfS7\nKO3DF6Xg+kyEsKi2+nyVp24bat/6IlzbLvNkG7exHZ9bjTVF9Mw2+ZwFG9nne3ac\n/mSjBATDtZp0mE11bw7zzca8oGbCJLu/PG87WhbCZLnJpgiea0/ES+j6L2HwgCjC\nTQhztQb9DrWYitxiN8CVUXG3lXsBgGGKog8oRRo1JCGJEpM38v1fchC8PIcPUuGw\n0b9pQVvf0JpL319PuVgT5aRga7glvsb/20f4KtmLIhzTKHN8G9fOGL3LG1N9WA90\nMozKimR3WWS9wB9wq190PL7/C/HCYLcILmKFBMg0wQKBgQD1yBtWOzdnNrMYFICI\nqKPO4hT5LIw0pTBlp4QAyRusEeP6JC9ZM/N5RkpIVg87wvBwi8I4PWnwAriiNFiS\nXqnE5TSCpsPl5Y7ULwoXbqVAl+73B4adN8O2hD81ZzpLO2kQWnJXEWh+8o1rpzIJ\ngnIf+FYDWOFGI3eQUr0do/9JMQKBgQDyAhqVh8tzZNupkBU8tYCHTXdRu/M6RhQ6\nWnWHpR5BJ5lOId4z8SwyNNkHpaObFQd3IJKEKb3/nLYq/LFzLPqk6N+Ef7nC0e57\nI2AXoCTP4LxEvKcKxkBFa6XPwW2aTJ8lGKi/ExpOdNci1tyrEWhdiAKzvVq7QVPR\nKAXjR5qw7wKBgHWerM5oikv/lleIwDYmFjZUZVsVYYd0IiQTtY02sOJ4sVQs6ufS\nf8riw3u4i5O655vElk6ZvU/ZzYf6awSo/q+2TJnVutwTLnYGiNrL3ZN64iYf2OD2\nJdf7k9A3tWL5bH8h+aQHNa3C38DMA5sfbQQ1sNvrNet936MWpWBA8lORAoGBAJxh\nyaXoiwp1GRC3/1Esg/Jql3jkd+anFDkk7R+LDkLSANmhPwHXjVSgG8I6Qb9b1mgf\nTy5B/vmm3Xxnr48aeJiJtq3bD0GaAH3nvRdnL4J42Y+dTF/E/hEd35ahil6Ttp71\nEU3vXSdnjwF/UDbm18bgtcZJzNCGBVB5iVx1j7tXAoGAYCsepp+bX7BhoS2/d4dH\nzj0EBfa5ZCUi8qoDKBTxBMLFjCYRLLGhf8OdAJtnqnV2r6wihuXHJIMrgvm9tkB3\nq9N6si6mYmIX7h6lqGqblYHLxNdps6TSSbjpp6HBQyXReK29GjLMp9SuJuMBGseg\nlsNxy+INDa96CgnUbelzVEA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "hackathon@catbreedrecognizer.iam.gserviceaccount.com",
+  "client_id": "118420414738011476463",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/hackathon%40catbreedrecognizer.iam.gserviceaccount.com"
+}

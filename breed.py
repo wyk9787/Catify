@@ -20,3 +20,6 @@ def get_breed(file_path, project_id, model_id):
 
 if __name__ == '__main__':
     print get_breed('cat.JPG', breed_project, model_id)
+
+
+#export GOOGLE_APPLICATION_CREDENTIALS="/Users/arthurhero/Desktop/Catify/CatBreedRecognizer-c7f6c9bd98ac.json"
