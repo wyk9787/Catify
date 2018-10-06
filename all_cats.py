@@ -16,7 +16,7 @@ def all_cats():
     max_distance = int(request.args.get('dis'))
     for cat in cats:
         distance = calculate_distance(float(lat), float(lon), 
-                cat.location[0][0], cat.location[0][1])
+                cat.center[0], cat.center[1])
         # If this cat is within the distance required
         if distance < max_distance:
             target_cats.append(cat)
