@@ -20,14 +20,19 @@ activity_range = 3
 @app.route('/similarcats', methods=['POST'])
 def similar_cats():
     img = Image.open(request.files['file'])
+<<<<<<< HEAD
     filename = 'tmp/tmp_' + str(generate_num) + '.png'
     img.save(filename, "png")
 
     target_cats = [] 
+=======
+    return 'Success!'
+    target_cats = []
+>>>>>>> b3ac494f933b8c647f11f11ec55e04057ac4d8b7
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
     color = request.args.get('color')
-    breed_score, breed = get_breed_and_score(filename) 
+    breed_score, breed = get_breed_and_score(filename)
 
     # Loop through all cats in the databse and find assign a score to each cat
     # Scores are scored as below:
@@ -48,7 +53,7 @@ def similar_cats():
         #   1. distance <= activity_range
         #   2. same color
         if distance <= activity_range and color == cat.color:
-            if breed == cat.breed: 
+            if breed == cat.breed:
                 if breed_score > 0.5 and cat.breed_score > 0.5:
                     # If every single criteria meets, then we assign
                     # a confidence score of 100
@@ -81,13 +86,16 @@ def similar_cats():
 
     # Sort those target cats according to its score
     target_cats.sort(key=lambda cat : cat[1])
-    
+
     # Serialize to JSON string then sends the response back
     jsonify([cat.__dict__ for cat in target_cats])
+<<<<<<< HEAD
     
 def generate_num():
     name_num += 1
     return name_num
+=======
+>>>>>>> b3ac494f933b8c647f11f11ec55e04057ac4d8b7
 
 if __name__ == '__main__':
     app.run()
