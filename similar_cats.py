@@ -7,12 +7,16 @@ from flask import request
 from flask import jsonify
 import json
 
+from PIL import Image
+
 app = Flask(__name__)
 
 activity_range = 3
 
 @app.route('/similarcats', methods=['GET'])
 def similar_cats():
+    img = Image.open(request.files['file'])
+    return 'Success!'
     target_cats = [] 
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
@@ -22,7 +26,7 @@ def similar_cats():
     # Loop through all cats in the databse and find assign a score to each cat
     # Scores are scored as below:
     #   100: Color, distance and breed match plus both breed score > 0.5
-    #    80: Color, distance, and breed match plus both one of the breed score
+    #    80: Color, distance, and breed match plus one of the breed score
     #        > 0.5
     #    70: Color, distance, and breed match but neither breed score > 0.5
     #    60: Color and distance match, but breed doesn't match plus either one
@@ -69,9 +73,11 @@ def similar_cats():
         else:
             target_cats.append((cat, 0))
 
+    # Sort those target cats according to its score
+    target_cats.sort(key=lambda cat : cat[1])
     
     # Serialize to JSON string then sends the response back
     jsonify([cat.__dict__ for cat in target_cats])
             
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=4444)
+    app.run()

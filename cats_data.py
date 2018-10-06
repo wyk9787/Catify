@@ -36,4 +36,4 @@ def generate_data():
 """generate_data()
 cats[1].add_location_and_image(111, 222)
 cats[1].add_location_and_image(1000, 2000)
-cats[1].add_location_and_image(201, 108)"""å
+cats[1].add_location_and_image(201, 108)"""
