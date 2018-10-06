@@ -1,5 +1,5 @@
 # Keeps track of all cats' information
-all_cats = []
+cats = []
 
 class Cat:
     def __init__(self, id, name, color, breed, lon, lat, neutered=False,
@@ -20,8 +20,8 @@ class Cat:
         return len(self.location)
 
 def generate_data():
-    cat1 = Cat('sesame', 1, 'black', 'domestic short hair', 123, 321)
-    cat2 = Cat('coconut', 2, 'mixed', 'domestic short hair', 1115, 1116)
-    cat3 = Cat('pineapple', 3, 'orange', 'tiger', 116, 118)
-    cat4 = Cat('fruit', 4, 'grey', 'Russian Blue', 220, 220)
-    all_cats.append([cat1, cat2, cat3, cat4])
+    cat1 = Cat(1, 'sesame', 'black', 'domestic short hair', 123, 321)
+    cat2 = Cat(2, 'coconut', 'mixed', 'domestic short hair', 1115, 1116)
+    cat3 = Cat(3, 'pineapple', 'orange', 'tiger', 116, 118)
+    cat4 = Cat(4, 'fruit', 'grey', 'Russian Blue', 220, 220)
+    cats.extend((cat1, cat2, cat3, cat4))
