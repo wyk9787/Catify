@@ -8,21 +8,25 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/allcats', methods=['GET'])
+@app.route('/allcats/', methods=['GET'])
 def all_cats():
     target_cats = [] 
     lat = request.args.get('lat')
     lon = request.args.get('lon')
-    max_distance = request.args.get('dis')
-    for cat in all_cats:
-        distance = calculate_distance(float(lat), float(lon), cat.lat, cat.lon)
+    max_distance = int(request.args.get('dis'))
+    for cat in cats:
+        distance = calculate_distance(float(lat), float(lon), 
+                cat.location[0][0], cat.location[0][1])
+        # If this cat is within the distance required
         if distance < max_distance:
             target_cats.append(cat)
     
     # Serialize to JSON string then sends the response back
     jsonify([cat.__dict__ for cat in target_cats])
-            
+    return 'success'
 
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=4444)
+# TEST
+#
+# if __name__ == '__main__':
+#     generate_data()
+#     app.run()
