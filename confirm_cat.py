@@ -1,7 +1,7 @@
-import importlib
+from cats_data import *
 
-moduleName = 'cats_data'
-importlib.import_module(moduleName)
+def confirm_cat(url, id, longitude, latitude):
+    all_cats[id].add_location_and_image(longtitude, latitude) # Adding a new location to the cat's info
 
-def comfirm_cat(url, id, longitude, latitude):
-    print "Testing confirm cat"
+
+confirm_cat("", 0, 200, 100)

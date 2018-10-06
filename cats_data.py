@@ -1,12 +1,13 @@
 all_cats = []
 
 class Cat:
-    def ___init__(self, id, name, color, longitude, latitude, breed, neutered=False,
+    def ___init__(self, id, name, color, breed, lon, lat, neutered=False,
             owner='None'):
         self.id = id
+        self.name = name
         self.color=color
-        self.location = [(longitude, latitude)]
         self.breed = breed
+        self.location = [(lon, lat)]
 
     def add_location_and_image(self, longitude, latitude):
         self.location.append((longitude, latitude))
