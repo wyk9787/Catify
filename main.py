@@ -13,7 +13,7 @@ def add_new_cat():
     lon = request.args.get('lon')
     lat = request.args.get('lat')
     new_cat = Cat(id, name, color, breed, lon, lat)
-    all_cats.append(new_cat)
+    cats.append(new_cat)
     return str(all_cats[0].location[0])
 
 @catify.route('/confirm', methods=['GET'])
@@ -21,5 +21,5 @@ def confirm_cat():
     id = request.args.get('id')
     lon = request.args.get('lon')
     lat = request.args.get('lat')
-    all_cats[int(id)].add_location_and_image(float(lon), float(lat)) # Adding a new location to the cat's info
+    cats[int(id)].add_location_and_image(float(lon), float(lat)) # Adding a new location to the cat's info
     return str(id)
