@@ -1,7 +1,7 @@
 all_cats = []
 
 class Cat:
-    def ___init__(self, id, name, color, longitude, latitude, breed, neutered=false,
+    def ___init__(self, id, name, color, longitude, latitude, breed, neutered=False,
             owner='None'):
         self.id = id
         self.color=color
