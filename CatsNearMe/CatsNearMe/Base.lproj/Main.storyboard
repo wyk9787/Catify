@@ -32,7 +32,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="captureButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uNi-TJ-bYu"/>
+                                    <segue destination="7M1-Ya-jz9" kind="show" identifier="captureSegue" id="F6G-Xr-BtQ"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKf-tH-txN">
@@ -61,7 +61,6 @@
                     <connections>
                         <outlet property="cameraView" destination="ah9-5q-3cu" id="c2P-3N-yyf"/>
                         <outlet property="colorPicker" destination="bKf-tH-txN" id="teu-jl-8nw"/>
-                        <segue destination="7M1-Ya-jz9" kind="presentation" identifier="captureSegue" id="Ugi-Dc-ft0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

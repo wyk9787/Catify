@@ -72,7 +72,8 @@ class candidateViewController: UIViewController,UITableViewDelegate, UITableView
             DestVC.lon = lon
         }
         if (segue.identifier == "createcatSegue") {
-            let DestVC = segue.destination as! newCatViewController
+            let nav = segue.destination as! UINavigationController
+            let DestVC = nav.topViewController as! newCatViewController
             DestVC.newcatImage = capturedImage.image
             DestVC.lat = lat
             DestVC.lon = lon

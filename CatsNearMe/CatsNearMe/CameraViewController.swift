@@ -43,11 +43,6 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     
     @IBOutlet weak var colorPicker: UIPickerView!
     
-    
-    @IBAction func captureButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "captureSegue", sender: self)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -138,7 +133,8 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "captureSegue") {
-            //let DestVC = segue.destination as! candidateViewController
+            let nav = segue.destination as! UINavigationController
+            let DestVC = nav.topViewController as! candidateViewController
             
             /*
             Cat.findsimilar(lon: lon, lat: lat, color: selectedColor, image: result!) { (cats) in
