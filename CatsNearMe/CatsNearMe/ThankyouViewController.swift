@@ -9,7 +9,13 @@
 import UIKit
 
 class ThankyouViewController: UIViewController {
-
+    
+    @IBOutlet weak var thankyouLabel: UILabel!
+    
+    @IBAction func okayButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

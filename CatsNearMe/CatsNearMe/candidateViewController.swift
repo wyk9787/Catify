@@ -14,14 +14,16 @@ class candidateViewController: UIViewController {
     
     @IBOutlet weak var candidateTableView: UITableView!
     
+    var candidates : [Cat] = []
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
+        candidates = []
         dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        capturedImage.image = result!
     }
     
 

@@ -9,7 +9,15 @@
 import UIKit
 
 class newCatViewController: UIViewController {
-
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var colorPickerView: UIPickerView!
+    
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

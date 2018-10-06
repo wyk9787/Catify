@@ -9,7 +9,20 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
+    
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var colorLabel: UILabel!
+    
+    @IBOutlet weak var breedLabel: UILabel!
+    
+    @IBOutlet weak var ownerLabel: UILabel!
+    
+    @IBAction func contactButtonTapped(_ sender: Any) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

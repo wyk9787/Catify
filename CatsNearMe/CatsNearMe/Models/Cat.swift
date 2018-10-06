@@ -107,6 +107,24 @@ class Cat: NSObject {
             "lon": String(lon),
             "lat": String(lat)
         ]
+        let urlParams = params.compactMap({ (key, value) -> String in
+            return "\(key)=\(value)"
+        }).joined(separator: "&")
+        let url = URL(string: host+"/newcat?"+urlParams)
+        let session = URLSession(configuration: .default)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        let task = session.dataTask(with: request,completionHandler: {
+            (data, response, error) -> Void in
+            if (error != nil) {
+                print("Failed to add this cat!")
+                completion(false)
+                return
+            }
+            print("Added this cat!")
+            completion(true)
+        })
+        task.resume()
     }
     
     class func confirm(id:Int,lon:Double,lat:Double,completion : @escaping (Bool) -> Void) -> Void {
