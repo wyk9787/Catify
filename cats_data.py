@@ -12,8 +12,15 @@ class Cat:
 
     # TODO: Add image to cat's info
     # Add a new location to the cat instance
-    def add_location_and_image(self, longitude, latitude):
-        self.location.append((longitude, latitude))
+    def add_location_and_image(self, lon, lat):
+        self.location.append((lon, lat))
+        lon_sum = 0
+        lat_sum = 0
+        for point in self.location:
+            lon_sum += point[0]
+            lat_sum += point[1]
+        self.center = (lon_sum/float(len(self.location)), lat_sum/float(len(self.location)))
+        print self.center
 
     # Returns the number of locations the cat has been found
     def get_size(self):
@@ -25,3 +32,8 @@ def generate_data():
     cat3 = Cat(3, 'pineapple', 'orange', 'tiger', 116, 118)
     cat4 = Cat(4, 'fruit', 'grey', 'Russian Blue', 220, 220)
     cats.extend((cat1, cat2, cat3, cat4))
+
+"""generate_data()
+cats[1].add_location_and_image(111, 222)
+cats[1].add_location_and_image(1000, 2000)
+cats[1].add_location_and_image(201, 108)"""å
