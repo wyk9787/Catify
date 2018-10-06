@@ -11,12 +11,18 @@ from PIL import Image
 
 app = Flask(__name__)
 
+# Used to append at the end of the file
+name_num = 0
+
+# Cats' activity range
 activity_range = 3
 
-@app.route('/similarcats', methods=['GET'])
+@app.route('/similarcats', methods=['POST'])
 def similar_cats():
     img = Image.open(request.files['file'])
-    return 'Success!'
+    filename = 'tmp/tmp_' + str(generate_num) + '.png'
+    img.save(filename, "png")
+
     target_cats = [] 
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
@@ -78,6 +84,10 @@ def similar_cats():
     
     # Serialize to JSON string then sends the response back
     jsonify([cat.__dict__ for cat in target_cats])
-            
+    
+def generate_num():
+    name_num += 1
+    return name_num
+
 if __name__ == '__main__':
     app.run()

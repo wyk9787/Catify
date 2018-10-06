@@ -38,7 +38,7 @@ def generate_data():
     cat7 = Cat(7, 'Wiki', 'brown', 'Siamese', 0.2, 212, 499)
     cat8 = Cat(8, 'chocho', 'white', 'Himalayan', 0.8, 987, 1190)
     cat9 = Cat(9, 'pirate', 'oraange', 'Somali', 0.5, 524, 1029)
-    cats.extend((cat1, cat2, cat3, cat4))
+    cats.extend((cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9))
 
 """generate_data()
 cats[1].add_location_and_image(111, 222)
