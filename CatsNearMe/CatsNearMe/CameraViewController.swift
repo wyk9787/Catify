@@ -15,6 +15,20 @@ var lon : Double = 0
 var lat : Double = 0
 let colors = ["black","white","grey","orange","blue","yellow","mixed"]
 
+extension UIImage {
+    func crop(rect: CGRect) -> UIImage {
+        var rect = rect
+        rect.origin.x*=self.scale
+        rect.origin.y*=self.scale
+        rect.size.width*=self.scale
+        rect.size.height*=self.scale
+        
+        let imageRef = self.cgImage!.cropping(to: rect)
+        let image = UIImage(cgImage: imageRef!, scale: self.scale, orientation: self.imageOrientation)
+        return image
+    }
+}
+
 class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var selectedColor = "black"
@@ -92,7 +106,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         
         let uiImage = UIImage(cgImage: cgImage!, scale: 1.0, orientation: .right)
         
-        result = uiImage
+        result = uiImage.crop(rect: CGRect(x: 120, y: 0, width: 750, height: 750))
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -124,11 +138,14 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "captureSegue") {
-            let DestVC = segue.destination as! candidateViewController
+            //let DestVC = segue.destination as! candidateViewController
+            
+            /*
             Cat.findsimilar(lon: lon, lat: lat, color: selectedColor, image: result!) { (cats) in
                 DestVC.candidates = cats
                 DestVC.candidateTableView.reloadData()
             }
+ */
         }
     }
     

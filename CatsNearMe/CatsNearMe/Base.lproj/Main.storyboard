@@ -178,16 +178,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xIO-f0-68e">
-                                <rect key="frame" x="65" y="81" width="240" height="191"/>
+                                <rect key="frame" x="65" y="81" width="240" height="240"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eS5-hk-XPm">
-                                <rect key="frame" x="119" y="296" width="142" height="21"/>
+                                <rect key="frame" x="119" y="345" width="142" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IEP-9I-BM8">
-                                <rect key="frame" x="141" y="455" width="98" height="30"/>
+                                <rect key="frame" x="141" y="504" width="98" height="30"/>
                                 <state key="normal" title="Show on map!"/>
                                 <connections>
                                     <segue destination="iPU-Sn-tFO" kind="show" identifier="mapSegue" id="eFE-4z-oKq"/>
@@ -219,13 +219,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neutered" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQG-kF-gEt">
-                                <rect key="frame" x="116" y="397" width="148" height="21"/>
+                                <rect key="frame" x="116" y="446" width="148" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3HH-wn-ER2">
-                                <rect key="frame" x="65" y="531" width="250" height="30"/>
+                                <rect key="frame" x="65" y="580" width="250" height="30"/>
                                 <state key="normal" title="Claim this cat / Provide more info"/>
                                 <connections>
                                     <action selector="contactButtonTapped:" destination="n3M-Zr-BW3" eventType="touchUpInside" id="pvx-9n-6Ns"/>
@@ -532,15 +532,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5XG-P9-BUl">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5XG-P9-BUl" firstAttribute="leading" secondItem="9Mb-BY-uHc" secondAttribute="leading" id="NK4-o5-sq1"/>
-                            <constraint firstItem="5XG-P9-BUl" firstAttribute="bottom" secondItem="ItV-gx-10u" secondAttribute="bottom" id="aKq-uZ-H7a"/>
-                            <constraint firstItem="5XG-P9-BUl" firstAttribute="top" secondItem="ItV-gx-10u" secondAttribute="top" id="ko1-0u-DLd"/>
-                            <constraint firstAttribute="trailing" secondItem="5XG-P9-BUl" secondAttribute="trailing" id="nGm-x6-Jka"/>
+                            <constraint firstAttribute="trailing" secondItem="5XG-P9-BUl" secondAttribute="trailing" id="3p2-Mh-7eq"/>
+                            <constraint firstItem="5XG-P9-BUl" firstAttribute="bottom" secondItem="ItV-gx-10u" secondAttribute="bottom" id="PrK-vs-hKc"/>
+                            <constraint firstItem="5XG-P9-BUl" firstAttribute="leading" secondItem="9Mb-BY-uHc" secondAttribute="leading" id="TP9-NH-KZp"/>
+                            <constraint firstItem="5XG-P9-BUl" firstAttribute="top" secondItem="ItV-gx-10u" secondAttribute="top" id="Xrl-p1-jFr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ItV-gx-10u"/>
                     </view>
@@ -597,7 +597,7 @@
         <image name="for_you" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RPd-C2-YRX"/>
-        <segue reference="G6I-t3-eG0"/>
+        <segue reference="8yI-zS-zcV"/>
+        <segue reference="0oq-IS-jyR"/>
     </inferredMetricsTieBreakers>
 </document>
