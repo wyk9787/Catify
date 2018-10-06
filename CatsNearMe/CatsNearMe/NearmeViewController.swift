@@ -8,26 +8,68 @@
 
 import UIKit
 
-class NearmeViewController: UIViewController {
+class NearmeViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var cats : [Cat] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        Cat.allcats(lon: lon, lat: lat) { (cats) in
+            self.cats = cats
+            self.tableView.reloadData()
+        }
     }
     
+    // MARK: - Table View Methods
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cats.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "catcell", for: indexPath) as! CatTableViewCell
+        cell.nameLabel.text = cats[indexPath.row].name
+        cell.breedLabel.text = cats[indexPath.row].breed
+        cell.ownerLabel.text = "Owner: "+cats[indexPath.row].owner
 
-    /*
+        cell.catImageView!.image = cats[indexPath.row].images[0]
+        
+        return cell
+    }
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "detailSegue") {
+            let indexPath = self.tableView.indexPath(for: sender as! CatTableViewCell)
+            let row = indexPath?.row
+            let DestVC = segue.destination as! DetailViewController
+            DestVC.cat = cats[row!]
+            
+            DestVC.imageView.image = cats[row!].images[0]
+            DestVC.nameLabel.text = cats[row!].name
+            DestVC.colorLabel.text = cats[row!].color
+            DestVC.breedLabel.text = cats[row!].breed
+            DestVC.ownerLabel.text = "Owner: "+cats[row!].owner
+            if cats[row!].neutered {
+                DestVC.neuteredLbel.text = "Neutered"
+            } else {
+                DestVC.neuteredLbel.text = "Not neutered"
+            }
+            DestVC.contactButton.isHidden = false
+            DestVC.confirmButton.isHidden = true
+        }
     }
-    */
+    
 
 }

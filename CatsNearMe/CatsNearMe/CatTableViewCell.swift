@@ -9,7 +9,13 @@
 import UIKit
 
 class CatTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var catImageView: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var breedLabel: UILabel!
+    @IBOutlet weak var ownerLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -22,17 +22,19 @@ class Cat: NSObject {
     var name:String
     var color:String
     var locations:[(Double,Double)]
+    var center:(Double,Double)
     var neutered:Bool
     var owner:String
     var breed:String
     
     var images:[UIImage]
     
-    init(id:Int, name:String, color:String, locations:[(Double,Double)],images:[UIImage], neutered:Bool, owner:String, breed:String) {
+    init(id:Int, name:String, color:String, locations:[(Double,Double)],center:(Double,Double),images:[UIImage], neutered:Bool, owner:String, breed:String) {
         self.id = id
         self.name = name
         self.color = color
         self.locations = locations
+        self.center = center
         self.images = images
         self.neutered = neutered
         self.owner = owner
@@ -83,7 +85,7 @@ class Cat: NSObject {
             let ldata = r["locations"] as! Array<Dictionary<String,String>>
             var locations : [(Double, Double)] = []
             for l in ldata {
-                locations.append((Double(l["lon"]!) ?? 0, Double(l["lat"]!) ?? 0))
+                locations.append((Double(l["lat"]!) ?? 0, Double(l["lon"]!) ?? 0))
             }
             let idata = r["images"] as! Array<String>
             var images : [UIImage] = []
@@ -92,18 +94,20 @@ class Cat: NSObject {
                 let image = UIImage(data: try! Data(contentsOf: imageURL!))
                 images.append(image!)
             }
-            let cat = Cat.init(id: Int(r["id"] as! String)!, name: r["name"] as! String, color: r["color"] as! String, locations: locations, images: images, neutered: neutered, owner: r["owner"] as! String,breed:r["breed"] as! String)
+            let cdata = r["center"] as! Dictionary<String,String>
+            let center = (Double(cdata["lat"]!)!,Double(cdata["lon"]!)!)
+            
+            let cat = Cat.init(id: Int(r["id"] as! String)!, name: r["name"] as! String, color: r["color"] as! String, locations: locations, center:center, images: images, neutered: neutered, owner: r["owner"] as! String,breed:r["breed"] as! String)
             cats.append(cat)
         }
         return cats
     }
     //--------------------
     
-    class func newcat(name:String,color:String,breed:String,lon:Double,lat:Double,completion : @escaping (Bool) -> Void) -> Void {
+    class func newcat(name:String,color:String,lon:Double,lat:Double,completion : @escaping (Bool) -> Void) -> Void {
         let params = [
             "name": name,
             "color": color,
-            "breed": breed,
             "lon": String(lon),
             "lat": String(lat)
         ]

@@ -11,10 +11,8 @@ import UIKit
 class CandidateTableViewCell: UITableViewCell {
     
     @IBOutlet weak var candidateImageView: UIImageView!
-    
     @IBOutlet weak var nameLabel: UILabel!
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

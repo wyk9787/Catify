@@ -13,7 +13,7 @@ import MapKit
 var result : UIImage?
 var lon : Double = 0
 var lat : Double = 0
-let colors = ["Black","White","Grey","Orange","Blue","Yellow","Mixed"]
+let colors = ["black","white","grey","orange","blue","yellow","mixed"]
 
 class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
