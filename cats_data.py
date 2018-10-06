@@ -30,9 +30,9 @@ class Cat:
         return len(self.location)
 
 def generate_data():
-    cat0 = Cat(0, 'plum', 'black', 'Bombay', 0.2, 981, 901)
-    cat1 = Cat(1, 'sesame', 'black', 'domestic short hair', 0.4, 123, 321)
-    cat2 = Cat(2, 'coconut', 'mixed', 'domestic short hair', 0.3, 1115, 1116)
+    cat0 = Cat(0, 'plum', 'black', 'Bombay', 0.99, 981, 901)
+    cat1 = Cat(1, 'sesame', 'black', 'AmericanShorthair', 0.8, 123, 321)
+    cat2 = Cat(2, 'coconut', 'mixed', 'AmericanShorthair', 0.3, 1115, 1116)
     cat3 = Cat(3, 'pineapple', 'orange', 'tiger', 0.6, 116, 118)
     cat4 = Cat(4, 'fruit', 'grey', 'Russian Blue', 0.9, 220, 220)
     cat5 = Cat(5, 'mochi', 'white', 'toy', 0.01, 210, 300)

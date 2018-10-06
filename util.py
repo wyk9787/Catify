@@ -1,5 +1,7 @@
 from math import sin, cos, sqrt, atan2, radians
 
+name_num = 0
+
 def calculate_distance(lat1, lon1, lat2, lon2):
     # Approximate radius of earth in km
     R = 6373.0
@@ -21,3 +23,8 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 
     # Convert from km to mile
     return distance / 1.6
+
+def generate_num():
+    global name_num
+    name_num += 1
+    return name_num

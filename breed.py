@@ -8,6 +8,7 @@ model_id = 'ICN3968837639531152817'
 
 def get_breed_and_score(filename):
     breed_str = str(get_breed_string(filename)) 
+    print breed_str
     parse_lists = breed_str.split(' ')
 
     # Parse score
@@ -21,6 +22,7 @@ def get_breed_and_score(filename):
 
 def get_breed_string(filename):
   with open(filename, 'rb') as ff:
+    print 'success'
     content = ff.read()
 
   prediction_client = automl_v1beta1.PredictionServiceClient()
@@ -31,3 +33,4 @@ def get_breed_string(filename):
   request = prediction_client.predict(name, payload, params)
   return request  # waits till request is returned
 
+get_breed_and_score('img/cat3.JPG')
