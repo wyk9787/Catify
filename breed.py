@@ -3,11 +3,24 @@ import sys
 from google.cloud import automl_v1beta1
 from google.cloud.automl_v1beta1.proto import service_pb2
 
-breed_project = 'catbreedrecognizer'
+project_id = 'catbreedrecognizer'
 model_id = 'ICN3968837639531152817'
 
-def get_breed(file_path, project_id, model_id):
-  with open(file_path, 'rb') as ff:
+def get_breed_and_score(filename):
+    breed_str = str(get_breed_string(filename)) 
+    parse_lists = breed_str.split(' ')
+
+    # Parse score
+    score = float(parse_lists[9])
+
+    # Parse breed
+    breed_ele = parse_lists[-1]
+    breed = breed_ele[breed_ele.find('"') + 1 : breed_ele.rfind('"')]
+
+    return score, breed
+
+def get_breed_string(filename):
+  with open(filename, 'rb') as ff:
     content = ff.read()
 
   prediction_client = automl_v1beta1.PredictionServiceClient()
@@ -18,8 +31,5 @@ def get_breed(file_path, project_id, model_id):
   request = prediction_client.predict(name, payload, params)
   return request  # waits till request is returned
 
-if __name__ == '__main__':
-    print get_breed('cat.JPG', breed_project, model_id)
+get_breed_and_score('cat.JPG')
 
-
-#export GOOGLE_APPLICATION_CREDENTIALS="/Users/arthurhero/Desktop/Catify/CatBreedRecognizer-c7f6c9bd98ac.json"
