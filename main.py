@@ -100,6 +100,7 @@ def similar_cats():
     #    80: Color, distance, and breed match plus one of the breed score
     #        > 0.5
     #    70: Color, distance, and breed match but neither breed score > 0.5
+    #    65: Color and distance match but breed cannot be found
     #    60: Color and distance match, but breed doesn't match plus either one
     #        of them has a breed score < 0.5
     #    40: Color, distance match, but breed doesn't match plus both of them
@@ -113,6 +114,8 @@ def similar_cats():
         #   1. distance <= activity_range
         #   2. same color
         if distance <= activity_range and color == cat.color:
+            if breed == 'None' or cat.breed == 'None':
+                target_cats.append((cat, 65))
             if breed == cat.breed:
                 if breed_score > 0.5 and cat.breed_score > 0.5:
                     # If every single criteria meets, then we assign
