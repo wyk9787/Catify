@@ -33,10 +33,3 @@ def get_breed_string(filename):
   params = {}
   request = prediction_client.predict(name, payload, params)
   return request  # waits till request is returned
-
-<<<<<<< HEAD
-request=get_breed_and_score("cattt.jpg")
-print request
-=======
-# get_breed_and_score('cat.JPG')
->>>>>>> 3db9055dbac3d87d2a4120a91ba9570e02443c1a

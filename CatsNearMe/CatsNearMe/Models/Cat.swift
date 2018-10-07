@@ -8,7 +8,7 @@
 
 import UIKit
 
-let host = "127.0.0.1"
+let host = "http://chenziwe.com/catify"
 
 extension NSMutableData {
     func appendString(string: String) {
@@ -90,7 +90,7 @@ class Cat: NSObject {
             let idata = r["images"] as! Array<String>
             var images : [UIImage] = []
             for i in idata {
-                let imageURL = URL(string: i)
+                let imageURL = URL(string: host+"/"+i)
                 let image = UIImage(data: try! Data(contentsOf: imageURL!))
                 images.append(image!)
             }
@@ -104,7 +104,7 @@ class Cat: NSObject {
     }
     //--------------------
     
-    class func newcat(name:String,completion : @escaping () -> Void) -> Void {
+    class func debug(completion : @escaping () -> Void) -> Void {
         let params = [
             "test": "testttt"
         ]
@@ -112,17 +112,19 @@ class Cat: NSObject {
             return "\(key)=\(value)"
         }).joined(separator: "&")
         let url = URL(string: host+"/debug?"+urlParams)
+        print("URLLLLLLLL"+host+"/debug?"+urlParams)
         let session = URLSession(configuration: .default)
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
         let task = session.dataTask(with: request,completionHandler: {
             (data, response, error) -> Void in
+            print(String(decoding: data!, as: UTF8.self))
             if (error != nil) {
                 print("Failure in debug!")
                 completion()
                 return
             }
-            print(data)
+            
             completion()
         })
         task.resume()
