@@ -45,6 +45,10 @@ class NearmeViewController: UIViewController,UITableViewDelegate, UITableViewDat
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
 
     // MARK: - Navigation
 
@@ -55,21 +59,7 @@ class NearmeViewController: UIViewController,UITableViewDelegate, UITableViewDat
             let row = indexPath?.row
             let DestVC = segue.destination as! DetailViewController
             DestVC.cat = cats[row!]
-            
-            DestVC.imageView.image = cats[row!].images[0]
-            DestVC.nameLabel.text = cats[row!].name
-            DestVC.colorLabel.text = cats[row!].color
-            DestVC.breedLabel.text = cats[row!].breed
-            DestVC.ownerLabel.text = "Owner: "+cats[row!].owner
-            if cats[row!].neutered {
-                DestVC.neuteredLbel.text = "Neutered"
-            } else {
-                DestVC.neuteredLbel.text = "Not neutered"
-            }
-            DestVC.contactButton.isHidden = false
-            DestVC.confirmButton.isHidden = true
+            DestVC.candidate = false
         }
     }
-    
-
 }

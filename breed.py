@@ -31,3 +31,5 @@ def get_breed_string(filename):
   request = prediction_client.predict(name, payload, params)
   return request  # waits till request is returned
 
+request=get_breed_and_score("cattt.jpg")
+print request

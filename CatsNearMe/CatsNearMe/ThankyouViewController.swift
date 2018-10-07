@@ -10,16 +10,46 @@ import UIKit
 
 class ThankyouViewController: UIViewController {
     
+    var confirm = false
+    var id = -1
+    var name = ""
+    
     @IBOutlet weak var thankyouLabel: UILabel!
     
     @IBAction func okayButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
+    func refresh(success : Bool) -> Void {
+        if success {
+            self.thankyouLabel.text = "Thank you!"
+        } else {
+            self.thankyouLabel.text = "Sorry failed to finish this task."
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if confirm {
+            self.thankyouLabel.text = "Confirming..."
+        } else {
+            self.thankyouLabel.text = "Adding cat..."
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if confirm {
+            Cat.confirm(id: id) { (success) in
+                sleep(5)
+                self.refresh(success: success)
+            }
+        } else {
+            Cat.newcat(name: name) { (success) in
+                sleep(5)
+                self.refresh(success: success)
+            }
+        }
+        
     }
     
 

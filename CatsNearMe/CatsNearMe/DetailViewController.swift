@@ -11,9 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var cat : Cat?
-    
-    var lon : Double = 0
-    var lat : Double = 0
+    var candidate = false
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -32,8 +30,24 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.imageView.image = cat!.images[0]
+        self.nameLabel.text = "Name: "+cat!.name
+        self.colorLabel.text = "Color: "+cat!.color
+        self.breedLabel.text = "Breed: "+cat!.breed
+        self.ownerLabel.text = "Owner: "+cat!.owner
+        if cat!.neutered {
+            neuteredLbel.text = "Neutered"
+        } else {
+            neuteredLbel.text = "Not neutered"
+        }
+        if candidate {
+            self.contactButton.isHidden = true
+            self.confirmButton.isHidden = false
+        } else {
+            self.contactButton.isHidden = false
+            self.confirmButton.isHidden = true
+        }
     }
     
     // MARK: - Navigation
@@ -42,14 +56,8 @@ class DetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "confirmSegue") {
             let DestVC = segue.destination as! ThankyouViewController
-            DestVC.thankyouLabel.text = "Confirming..."
-            Cat.confirm(id: cat!.id, lon: lon, lat: lat) { (success) in
-                if success {
-                    DestVC.thankyouLabel.text = "Thank you!"
-                } else {
-                    DestVC.thankyouLabel.text = "Sorry failed to confirm this cat."
-                }
-            }
+            DestVC.confirm = true
+            DestVC.id = (cat?.id)!
         }
         
         if (segue.identifier == "mapSegue") {

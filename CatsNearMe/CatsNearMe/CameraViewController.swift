@@ -135,13 +135,12 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         if (segue.identifier == "captureSegue") {
             let nav = segue.destination as! UINavigationController
             let DestVC = nav.topViewController as! candidateViewController
-            
-            /*
+            print(lat)
+            print(lon)
             Cat.findsimilar(lon: lon, lat: lat, color: selectedColor, image: result!) { (cats) in
                 DestVC.candidates = cats
-                DestVC.candidateTableView.reloadData()
             }
- */
+ 
         }
     }
     

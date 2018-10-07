@@ -104,12 +104,11 @@ class Cat: NSObject {
     }
     //--------------------
     
-    class func newcat(name:String,color:String,lon:Double,lat:Double,completion : @escaping (Bool) -> Void) -> Void {
+    class func newcat(name:String,completion : @escaping (Bool) -> Void) -> Void {
+        completion(true)
+        /*
         let params = [
-            "name": name,
-            "color": color,
-            "lon": String(lon),
-            "lat": String(lat)
+            "name": name
         ]
         let urlParams = params.compactMap({ (key, value) -> String in
             return "\(key)=\(value)"
@@ -129,13 +128,14 @@ class Cat: NSObject {
             completion(true)
         })
         task.resume()
+ */
     }
     
-    class func confirm(id:Int,lon:Double,lat:Double,completion : @escaping (Bool) -> Void) -> Void {
+    class func confirm(id:Int,completion : @escaping (Bool) -> Void) -> Void {
+        completion(true)
+        /*
         let params = [
-            "id": String(id),
-            "lon": String(lon),
-            "lat": String(lat)
+            "id": String(id)
         ]
         let urlParams = params.compactMap({ (key, value) -> String in
             return "\(key)=\(value)"
@@ -155,9 +155,18 @@ class Cat: NSObject {
             completion(true)
         })
         task.resume()
+ */
     }
     
     class func findsimilar(lon:Double,lat:Double,color:String,image:UIImage,completion : @escaping ([Cat]) -> Void) -> Void {
+        var cats : [Cat] = []
+        let cat = Cat.init(id: 1, name: "Michelangelo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "1")], neutered: false, owner: "None", breed: "Domestic shorthair")
+        
+        cats.append(cat)
+        
+        completion(cats)
+        
+        /*
         let params = [
             "lon": String(lon),
             "lat": String(lat),
@@ -194,9 +203,19 @@ class Cat: NSObject {
             completion(cats)
         })
         task.resume()
+ */
     }
     
     class func allcats(lon:Double,lat:Double,completion : @escaping ([Cat]) -> Void) -> Void {
+        
+        var cats : [Cat] = []
+        let cat = Cat.init(id: 1, name: "Michelangelo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "1")], neutered: false, owner: "None", breed: "Domestic shorthair")
+        
+        cats.append(cat)
+        
+        completion(cats)
+        
+        /*
         let params = [
             "lon": String(lon),
             "lat": String(lat),
@@ -223,6 +242,7 @@ class Cat: NSObject {
             completion(cats)
         }
         task.resume()
+ */
     }
 
 }

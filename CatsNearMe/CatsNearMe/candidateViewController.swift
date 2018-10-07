@@ -25,6 +25,15 @@ class candidateViewController: UIViewController,UITableViewDelegate, UITableView
         capturedImage.image = result!
         candidateTableView.delegate = self
         candidateTableView.dataSource = self
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:  #selector(refresh), for: UIControl.Event.valueChanged)
+        self.candidateTableView.refreshControl = refreshControl
+    }
+    
+    @objc func refresh() {
+        self.candidateTableView.reloadData()
+        self.candidateTableView.refreshControl?.endRefreshing()
     }
     
     // MARK: - Table View Methods
@@ -45,38 +54,25 @@ class candidateViewController: UIViewController,UITableViewDelegate, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "candidateSegue") {
-            let indexPath = self.candidateTableView.indexPath(for: sender as! CatTableViewCell)
+            let indexPath = self.candidateTableView.indexPath(for: sender as! CandidateTableViewCell)
             let row = indexPath?.row
             let DestVC = segue.destination as! DetailViewController
             DestVC.cat = candidates[row!]
-            
-            DestVC.imageView.image = candidates[row!].images[0]
-            DestVC.nameLabel.text = candidates[row!].name
-            DestVC.colorLabel.text = candidates[row!].color
-            DestVC.breedLabel.text = candidates[row!].breed
-            DestVC.ownerLabel.text = "Owner: "+candidates[row!].owner
-            if candidates[row!].neutered {
-                DestVC.neuteredLbel.text = "Neutered"
-            } else {
-                DestVC.neuteredLbel.text = "Not neutered"
-            }
-            DestVC.contactButton.isHidden = true
-            DestVC.confirmButton.isHidden = false
-
-            DestVC.lat = lat
-            DestVC.lon = lon
+            DestVC.candidate = true
         }
         if (segue.identifier == "createcatSegue") {
             let nav = segue.destination as! UINavigationController
             let DestVC = nav.topViewController as! newCatViewController
             DestVC.newcatImage = capturedImage.image
-            DestVC.lat = lat
-            DestVC.lon = lon
         }
     }
 }
