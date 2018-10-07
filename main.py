@@ -153,14 +153,12 @@ def similar_cats():
     print target_cats
 
     # Serialize to JSON string then sends the response back
-    jsonify([cat[0].__dict__ for cat in target_cats])
-    return 'success'
+    return jsonify([cat[0].__dict__ for cat in target_cats])
     
 @catify.route('/debug', methods=['GET'])
 def debug():
     test = str(request.args.get('test'))
     return 'hello world! test = {}'.format(test)
-    # return json.dumps([cat.__dict__ for cat in cats]) 
 
 if __name__ == '__main__':
-    catify.run(host='0.0.0.0')
+    catify.run()
