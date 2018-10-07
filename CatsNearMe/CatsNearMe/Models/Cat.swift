@@ -131,8 +131,8 @@ class Cat: NSObject {
     }
     
     class func newcat(name:String,completion : @escaping (Bool) -> Void) -> Void {
-        completion(true)
-        /*
+        //completion(true)
+        
         let params = [
             "name": name
         ]
@@ -154,12 +154,12 @@ class Cat: NSObject {
             completion(true)
         })
         task.resume()
- */
+ 
     }
     
     class func confirm(id:Int,completion : @escaping (Bool) -> Void) -> Void {
-        completion(true)
-        /*
+        //completion(true)
+        
         let params = [
             "id": String(id)
         ]
@@ -181,18 +181,29 @@ class Cat: NSObject {
             completion(true)
         })
         task.resume()
- */
+ 
     }
     
     class func findsimilar(lon:Double,lat:Double,color:String,image:UIImage,completion : @escaping ([Cat]) -> Void) -> Void {
+        
         /*
         var cats : [Cat] = []
-        let cat = Cat.init(id: 1, name: "Michelangelo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "1")], neutered: false, owner: "None", breed: "Domestic shorthair")
+        let cat1 = Cat.init(id: 1, name: "Michelangelo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "446")], neutered: false, owner: "None", breed: "American shorthair")
+        cats.append(cat1)
         
-        cats.append(cat)
+        let cat2 = Cat.init(id: 2, name: "Cosimo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "448")], neutered: true, owner: "Micheal", breed: "American shorthair")
+        cats.append(cat2)
+        
+        let cat3 = Cat.init(id: 3, name: "Sera", color: "grey", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "447")], neutered: true, owner: "None", breed: "American shorthair")
+        cats.append(cat3)
+        
+        let cat4 = Cat.init(id: 4, name: "Molly", color: "grey", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "438")], neutered: false, owner: "None", breed: "American shorthair")
+        cats.append(cat4)
         
         completion(cats)
  */
+        
+        
         let params = [
             "lon": String(lon),
             "lat": String(lat),
@@ -229,18 +240,35 @@ class Cat: NSObject {
             completion(cats)
         })
         task.resume()
+ 
     }
     
     class func allcats(lon:Double,lat:Double,completion : @escaping ([Cat]) -> Void) -> Void {
         
+        /*
         var cats : [Cat] = []
-        let cat = Cat.init(id: 1, name: "Michelangelo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "1")], neutered: false, owner: "None", breed: "Domestic shorthair")
+        let cat1 = Cat.init(id: 1, name: "Michelangelo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "446")], neutered: false, owner: "None", breed: "American shorthair")
+        cats.append(cat1)
         
-        cats.append(cat)
+        let cat2 = Cat.init(id: 2, name: "Cosimo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "448")], neutered: true, owner: "Micheal", breed: "American shorthair")
+        cats.append(cat2)
+        
+        let cat3 = Cat.init(id: 3, name: "Sera", color: "grey", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "447")], neutered: true, owner: "None", breed: "American shorthair")
+        cats.append(cat3)
+        
+        let cat4 = Cat.init(id: 4, name: "Molly", color: "grey", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "438")], neutered: false, owner: "None", breed: "American shorthair")
+        cats.append(cat4)
+        
+        let cat5 = Cat.init(id: 6, name: "Coconut", color: "yellow", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "cat4")], neutered: false, owner: "Garrett", breed: "Domestic shorthair")
+        cats.append(cat5)
+        
+        let cat6 = Cat.init(id: 6, name: "Saseme", color: "black", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "cat")], neutered: false, owner: "Garrett", breed: "Domestic shorthair")
+        cats.append(cat6)
         
         completion(cats)
+ */
         
-        /*
+        
         let params = [
             "lon": String(lon),
             "lat": String(lat),
@@ -267,7 +295,7 @@ class Cat: NSObject {
             completion(cats)
         }
         task.resume()
- */
+ 
     }
 
 }
