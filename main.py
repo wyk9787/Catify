@@ -158,7 +158,8 @@ def similar_cats():
     
 @catify.route('/debug', methods=['GET'])
 def debug():
-    return 'hello world'
+    test = str(request.args.get('test'))
+    return 'hello world! test = {}'.format(test)
     # return json.dumps([cat.__dict__ for cat in cats]) 
 
 if __name__ == '__main__':
