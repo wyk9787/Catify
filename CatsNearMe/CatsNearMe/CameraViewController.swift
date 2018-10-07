@@ -29,7 +29,7 @@ extension UIImage {
     }
 }
 
-class CameraViewController: UIViewController, /*AVCaptureVideoDataOutputSampleBufferDelegate,*/ CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var selectedColor = "black"
     
@@ -46,10 +46,6 @@ class CameraViewController: UIViewController, /*AVCaptureVideoDataOutputSampleBu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Cat.debug {
-            print("debugging")
-        }
-        
         colorPicker.delegate = self
         colorPicker.dataSource = self
         
@@ -60,7 +56,6 @@ class CameraViewController: UIViewController, /*AVCaptureVideoDataOutputSampleBu
             locationManager.startUpdatingLocation()
         }
         
-        /*
         session = AVCaptureSession()
         session?.beginConfiguration()
         
@@ -94,10 +89,8 @@ class CameraViewController: UIViewController, /*AVCaptureVideoDataOutputSampleBu
         cameraView.layer.addSublayer(previewLayer!)
         
         session?.startRunning()
- */
     }
     
-    /*
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let pixelBuffer : CVPixelBuffer? = CMSampleBufferGetImageBuffer(sampleBuffer)
         
@@ -110,7 +103,6 @@ class CameraViewController: UIViewController, /*AVCaptureVideoDataOutputSampleBu
         
         result = uiImage.crop(rect: CGRect(x: 120, y: 0, width: 750, height: 750))
     }
- */
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue : CLLocationCoordinate2D = (manager.location?.coordinate)!
