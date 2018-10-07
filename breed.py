@@ -8,6 +8,9 @@ model_id = 'ICN3968837639531152817'
 
 def get_breed_and_score(filename):
     breed_str = str(get_breed_string(filename)) 
+    if breed_str == '':
+        print 'Warning: did not receive breed and its score from cloud' 
+        return 0, 'None'
     parse_lists = breed_str.split(' ')
 
     # Parse score
@@ -31,5 +34,9 @@ def get_breed_string(filename):
   request = prediction_client.predict(name, payload, params)
   return request  # waits till request is returned
 
+<<<<<<< HEAD
 request=get_breed_and_score("cattt.jpg")
 print request
+=======
+# get_breed_and_score('cat.JPG')
+>>>>>>> 3db9055dbac3d87d2a4120a91ba9570e02443c1a

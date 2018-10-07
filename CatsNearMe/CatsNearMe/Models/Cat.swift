@@ -104,6 +104,30 @@ class Cat: NSObject {
     }
     //--------------------
     
+    class func newcat(name:String,completion : @escaping () -> Void) -> Void {
+        let params = [
+            "test": "testttt"
+        ]
+        let urlParams = params.compactMap({ (key, value) -> String in
+            return "\(key)=\(value)"
+        }).joined(separator: "&")
+        let url = URL(string: host+"/debug?"+urlParams)
+        let session = URLSession(configuration: .default)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        let task = session.dataTask(with: request,completionHandler: {
+            (data, response, error) -> Void in
+            if (error != nil) {
+                print("Failure in debug!")
+                completion()
+                return
+            }
+            print(data)
+            completion()
+        })
+        task.resume()
+    }
+    
     class func newcat(name:String,completion : @escaping (Bool) -> Void) -> Void {
         completion(true)
         /*
@@ -116,7 +140,7 @@ class Cat: NSObject {
         let url = URL(string: host+"/newcat?"+urlParams)
         let session = URLSession(configuration: .default)
         var request = URLRequest(url: url!)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         let task = session.dataTask(with: request,completionHandler: {
             (data, response, error) -> Void in
             if (error != nil) {
@@ -143,7 +167,7 @@ class Cat: NSObject {
         let url = URL(string: host+"/confirm?"+urlParams)
         let session = URLSession(configuration: .default)
         var request = URLRequest(url: url!)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         let task = session.dataTask(with: request,completionHandler: {
             (data, response, error) -> Void in
             if (error != nil) {
