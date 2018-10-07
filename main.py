@@ -7,6 +7,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from PIL import Image
+import os
 
 catify = Flask(__name__)
 
@@ -24,6 +25,10 @@ saved_breed = ''
 saved_color = ''
 saved_lon = 0
 saved_lat = 0
+saved_filename = ''
+
+# Constants
+img_folder_dir = 'img/'
 
 @catify.route('/newcat', methods=['GET'])
 def add_new_cat():
@@ -36,6 +41,7 @@ def add_new_cat():
     lat = saved_lat 
     new_cat = Cat(id, name, color, breed, breed_score, lon, lat)
     cats.append(new_cat)
+    os.rename(saved_filename, img_folder_dir + str(id) + '_0.png') 
     return "Success"
 
 @catify.route('/confirm', methods=['GET'])
@@ -45,6 +51,9 @@ def confirm_cat():
     lat = saved_lat 
     cats[int(id)].add_location_and_image(float(lon), float(lat)) # Adding a new location to the cat's info
     location = cats[id].center
+    # Rename the file to 'tmp/id_index.png'
+    os.rename(saved_filename, img_folder_dir + str(id) + '_'
+            + str(len(cats[id].images) - 1) + '.png') 
     return "Cat %d is centered around (%f, %f)" % (id, location['lon'], location['lat'])
 
 @catify.route('/allcats', methods=['GET'])
@@ -67,14 +76,14 @@ def all_cats():
 
 @catify.route('/similarcats', methods=['POST'])
 def similar_cats():
+    global saved_lon, saved_lat, saved_breed, saved_breed_score, saved_color, saved_filename
     img = Image.open(request.files['file'])
-    filename = 'tmp/tmp_' + str(generate_num()) + '.png'
+    filename = img_folder_dir + 'tmp_' + str(generate_num()) + '.png'
     img.save(filename, "png")
 
     target_cats = [] 
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
-    global saved_lon, saved_lat, saved_breed, saved_breed_score, saved_color
     color = request.args.get('color')
     breed_score, breed = get_breed_and_score(filename)
     # Update saved values
@@ -83,6 +92,7 @@ def similar_cats():
     saved_lon = lon
     saved_lat = lat
     saved_color = color
+    saved_filename = filename
 
     # Loop through all cats in the databse and find assign a score to each cat
     # Scores are scored as below:

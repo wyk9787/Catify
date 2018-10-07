@@ -10,9 +10,9 @@ class Cat:
         self.breed = breed
         self.breed_score = breed_score
         self.location = [{'lon' : lon, 'lat' : lat}]
+        self.images = [str(id) + '_0.png']
         self.center = {'lon' : lon, 'lat' : lat}
 
-    # TODO: Add image to cat's info
     # Add a new location to the cat instance
     def add_location_and_image(self, lon, lat):
         self.location.append({'lon' : lon, 'lat' : lat})
@@ -23,11 +23,14 @@ class Cat:
             lat_sum += point['lat']
         self.center['lon'] = lon_sum/float(len(self.location))
         self.center['lat'] = lat_sum/float(len(self.location))
+        self.images.append(str(self.id) + '_' + str(len(self.images)) + '.png')
         print self.center
 
     # Returns the number of locations the cat has been found
     def get_size(self):
         return len(self.location)
+
+     
 
 def generate_data():
     cat0 = Cat(0, 'plum', 'black', 'Bombay', 0.99, 981, 901)
