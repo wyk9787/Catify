@@ -28,7 +28,7 @@ saved_lat = 0
 saved_filename = ''
 
 # Constants
-img_folder_dir = 'img/'
+img_folder_dir = '/home/Garrett/Catify/img/'
 
 @app.route('/newcat', methods=['GET'])
 def add_new_cat():
@@ -161,4 +161,4 @@ def debug():
     return 'hello world! test = {}'.format(test)
 
 if __name__ == '__main__':
-    catify.run()
+    app.run()

@@ -3,8 +3,8 @@ import sys
 from google.cloud import automl_v1beta1
 from google.cloud.automl_v1beta1.proto import service_pb2
 
-project_id = 'catbreedrecognizer'
-model_id = 'ICN3968837639531152817'
+project_id = 'catify-218805'
+model_id = 'ICN5060689131880883161'
 
 def get_breed_and_score(filename):
     breed_str = str(get_breed_string(filename)) 
