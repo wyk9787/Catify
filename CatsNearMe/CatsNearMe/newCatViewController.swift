@@ -24,6 +24,7 @@ class newCatViewController: UIViewController,UITextFieldDelegate  {
         super.viewDidLoad()
         nameTextField.delegate = self
         doneButton.isEnabled = false
+        self.dismissKeyBoardWhenTappingAround()
     }
     
     // MARK: - Text Field Methods

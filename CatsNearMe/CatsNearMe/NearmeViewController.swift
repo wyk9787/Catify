@@ -21,7 +21,9 @@ class NearmeViewController: UIViewController,UITableViewDelegate, UITableViewDat
         
         Cat.allcats(lon: lon, lat: lat) { (cats) in
             self.cats = cats
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -32,17 +34,30 @@ class NearmeViewController: UIViewController,UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cats.count
+        if cats.count == 0 {
+            return 1
+        } else {
+            return cats.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "catcell", for: indexPath) as! CatTableViewCell
-        cell.nameLabel.text = cats[indexPath.row].name
-        cell.breedLabel.text = cats[indexPath.row].breed
-        cell.ownerLabel.text = "Owner: "+cats[indexPath.row].owner
-
-        cell.catImageView!.image = cats[indexPath.row].images[0]
         
+        if cats.count == 0 {
+            cell.nameLabel.text = "Loading..."
+            cell.breedLabel.text = ""
+            cell.ownerLabel.text = ""
+            cell.catImageView.isHidden = true
+            cell.isUserInteractionEnabled = false
+        } else {
+            cell.isUserInteractionEnabled = true
+            cell.nameLabel.text = cats[indexPath.row].name
+            cell.breedLabel.text = cats[indexPath.row].breed
+            cell.ownerLabel.text = "Owner: "+cats[indexPath.row].owner
+            cell.catImageView.isHidden = false
+            cell.catImageView!.image = cats[indexPath.row].images[0]
+        }
         return cell
     }
     
@@ -54,7 +69,7 @@ class NearmeViewController: UIViewController,UITableViewDelegate, UITableViewDat
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "detailSegue") {
+        if (segue.identifier == "detailSegue" && cats.count != 0) {
             let indexPath = self.tableView.indexPath(for: sender as! CatTableViewCell)
             let row = indexPath?.row
             let DestVC = segue.destination as! DetailViewController

@@ -12,6 +12,9 @@ class candidateViewController: UIViewController,UITableViewDelegate, UITableView
     
     @IBOutlet weak var capturedImage: UIImageView!
     @IBOutlet weak var candidateTableView: UITableView!
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var nopeButton: UIButton!
+    
     
     var candidates : [Cat] = []
     
@@ -26,12 +29,19 @@ class candidateViewController: UIViewController,UITableViewDelegate, UITableView
         candidateTableView.delegate = self
         candidateTableView.dataSource = self
         
+        questionLabel.text = "Still loading candidates... Swipe the table below to refresh."
+        nopeButton.isHidden = true
+        
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(refresh), for: UIControl.Event.valueChanged)
         self.candidateTableView.refreshControl = refreshControl
     }
     
     @objc func refresh() {
+        if candidates.count != 0 {
+            questionLabel.text = "Is the cat in this list?"
+            nopeButton.isHidden = false
+        }
         self.candidateTableView.reloadData()
         self.candidateTableView.refreshControl?.endRefreshing()
     }

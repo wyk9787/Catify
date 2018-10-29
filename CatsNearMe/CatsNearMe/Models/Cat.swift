@@ -8,7 +8,8 @@
 
 import UIKit
 
-let host = "http://chenziwe.com/catify"
+let host = "http://garrettwyk.com"
+let img_path = host + "/pic/"
 
 extension NSMutableData {
     func appendString(string: String) {
@@ -43,6 +44,59 @@ class Cat: NSObject {
     
     //helpers for image---------
     
+    static func imageOrientation(_ src:UIImage)->UIImage {
+        if src.imageOrientation == UIImage.Orientation.up {
+            return src
+        }
+        var transform: CGAffineTransform = CGAffineTransform.identity
+        switch src.imageOrientation {
+        case UIImage.Orientation.down, UIImage.Orientation.downMirrored:
+            transform = transform.translatedBy(x: src.size.width, y: src.size.height)
+            transform = transform.rotated(by: CGFloat(Double.pi))
+            break
+        case UIImage.Orientation.left, UIImage.Orientation.leftMirrored:
+            transform = transform.translatedBy(x: src.size.width, y: 0)
+            transform = transform.rotated(by: CGFloat(Double.pi / 2))
+            break
+        case UIImage.Orientation.right, UIImage.Orientation.rightMirrored:
+            transform = transform.translatedBy(x: 0, y: src.size.height)
+            transform = transform.rotated(by: CGFloat(-Double.pi / 2))
+            break
+        case UIImage.Orientation.up, UIImage.Orientation.upMirrored:
+            break
+        }
+        
+        switch src.imageOrientation {
+        case UIImage.Orientation.upMirrored, UIImage.Orientation.downMirrored:
+            transform.translatedBy(x: src.size.width, y: 0)
+            transform.scaledBy(x: -1, y: 1)
+            break
+        case UIImage.Orientation.leftMirrored, UIImage.Orientation.rightMirrored:
+            transform.translatedBy(x: src.size.height, y: 0)
+            transform.scaledBy(x: -1, y: 1)
+        case UIImage.Orientation.up, UIImage.Orientation.down, UIImage.Orientation.left, UIImage.Orientation.right:
+            break
+        }
+        
+        let ctx:CGContext = CGContext(data: nil, width: Int(src.size.width), height: Int(src.size.height), bitsPerComponent: (src.cgImage)!.bitsPerComponent, bytesPerRow: 0, space: (src.cgImage)!.colorSpace!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+        
+        ctx.concatenate(transform)
+        
+        switch src.imageOrientation {
+        case UIImage.Orientation.left, UIImage.Orientation.leftMirrored, UIImage.Orientation.right, UIImage.Orientation.rightMirrored:
+            ctx.draw(src.cgImage!, in: CGRect(x: 0, y: 0, width: src.size.height, height: src.size.width))
+            break
+        default:
+            ctx.draw(src.cgImage!, in: CGRect(x: 0, y: 0, width: src.size.width, height: src.size.height))
+            break
+        }
+        
+        let cgimg:CGImage = ctx.makeImage()!
+        let img:UIImage = UIImage(cgImage: cgimg)
+        
+        return img
+    }
+    
     static func generateBoundaryString() -> String {
         return "Boundary-\(NSUUID().uuidString)"
     }
@@ -50,25 +104,14 @@ class Cat: NSObject {
     static func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: Data, boundary: String) -> Data {
         let body = NSMutableData();
         
-        if parameters != nil {
-            for (key, value) in parameters! {
-                body.appendString(string: "--\(boundary)\r\n")
-                body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
-                body.appendString(string: "\(value)\r\n")
-            }
-        }
-        
-        let filename = "user-profile.jpg"
-        
         let mimetype = "image/jpg"
         
-        body.appendString(string: "--\(boundary)\r\n")
-        body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
-        body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
+        body.append("------\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Disposition:form-data; name=\"file\"; filename=\"tmp.jpg\"\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
         body.append(imageDataKey)
-        body.appendString(string: "\r\n")
-        
-        body.appendString(string: "--\(boundary)--\r\n")
+        body.append("\r\n".data(using: String.Encoding.utf8)!)
+        body.append("------\(boundary)--".data(using: String.Encoding.utf8)!)
         
         return body as Data
     }
@@ -78,26 +121,29 @@ class Cat: NSObject {
     static func convert(result:Array<Dictionary<String, Any>>) -> [Cat] {
         var cats : [Cat] = []
         for r in result {
-            var neutered = false
+            /*TO BE CHANGED*/
+            let neutered = false
+            /*
             if (r["neutered"]as!String=="true") {
                 neutered = true
             }
-            let ldata = r["locations"] as! Array<Dictionary<String,String>>
+ */
+            let ldata = r["location"] as! Array<NSDictionary>
             var locations : [(Double, Double)] = []
             for l in ldata {
-                locations.append((Double(l["lat"]!) ?? 0, Double(l["lon"]!) ?? 0))
+                locations.append((l["lat"]! as! Double, l["lon"]! as! Double))
             }
             let idata = r["images"] as! Array<String>
             var images : [UIImage] = []
             for i in idata {
-                let imageURL = URL(string: host+"/"+i)
+                let imageURL = URL(string: img_path+i)
                 let image = UIImage(data: try! Data(contentsOf: imageURL!))
                 images.append(image!)
             }
-            let cdata = r["center"] as! Dictionary<String,String>
-            let center = (Double(cdata["lat"]!)!,Double(cdata["lon"]!)!)
+            let cdata = r["center"] as! NSDictionary
+            let center = (cdata["lat"]! as! Double,cdata["lon"]! as! Double)
             
-            let cat = Cat.init(id: Int(r["id"] as! String)!, name: r["name"] as! String, color: r["color"] as! String, locations: locations, center:center, images: images, neutered: neutered, owner: r["owner"] as! String,breed:r["breed"] as! String)
+            let cat = Cat.init(id: r["id"] as! Int, name: r["name"] as! String, color: r["color"] as! String, locations: locations, center:center, images: images, neutered: neutered, /*TO BE CHANGED*/owner: "None",breed:r["breed"] as! String)
             cats.append(cat)
         }
         return cats
@@ -131,7 +177,6 @@ class Cat: NSObject {
     }
     
     class func newcat(name:String,completion : @escaping (Bool) -> Void) -> Void {
-        //completion(true)
         
         let params = [
             "name": name
@@ -160,6 +205,7 @@ class Cat: NSObject {
     class func confirm(id:Int,completion : @escaping (Bool) -> Void) -> Void {
         //completion(true)
         
+        
         let params = [
             "id": String(id)
         ]
@@ -181,11 +227,10 @@ class Cat: NSObject {
             completion(true)
         })
         task.resume()
- 
     }
     
     class func findsimilar(lon:Double,lat:Double,color:String,image:UIImage,completion : @escaping ([Cat]) -> Void) -> Void {
-        
+    
         /*
         var cats : [Cat] = []
         let cat1 = Cat.init(id: 1, name: "Michelangelo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "446")], neutered: false, owner: "None", breed: "American shorthair")
@@ -203,7 +248,6 @@ class Cat: NSObject {
         completion(cats)
  */
         
-        
         let params = [
             "lon": String(lon),
             "lat": String(lat),
@@ -219,13 +263,22 @@ class Cat: NSObject {
         
         let boundary = generateBoundaryString()
         
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue("multipart/form-data; boundary=----\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        let imageData = image.jpegData(compressionQuality: 1)
+        let image_oriented = imageOrientation(image)
         
-        request.httpBody = createBodyWithParameters(parameters: [:], filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
+        let imageData = image_oriented.jpegData(compressionQuality: 1)
         
-        //myActivityIndicator.startAnimating();
+        if (imageData == nil){
+            print("nil image data")
+        }
+        
+        let fullData = createBodyWithParameters(parameters:nil, filePathKey: "file", imageDataKey: imageData!, boundary: boundary)
+        
+        request.setValue(String(fullData.count), forHTTPHeaderField: "Content-Length")
+        
+        request.httpBody = fullData
+        request.httpShouldHandleCookies = false
         
         let task = session.dataTask(with: request,completionHandler: {
             (data, response, error) -> Void in
@@ -234,6 +287,7 @@ class Cat: NSObject {
                 return
             }
             print("Got similar cats!")
+            //print(String(decoding: data!, as: UTF8.self))
             let result = try? JSONSerialization.jsonObject(with: data!, options: []) as! Array<Dictionary<String, Any>>
             let cats : [Cat] = convert(result: result!)
             
@@ -244,8 +298,8 @@ class Cat: NSObject {
     }
     
     class func allcats(lon:Double,lat:Double,completion : @escaping ([Cat]) -> Void) -> Void {
-        
         /*
+        
         var cats : [Cat] = []
         let cat1 = Cat.init(id: 1, name: "Michelangelo", color: "mixed", locations: [(41.755,-92.725),(41.75,-92.715),(41.748,-92.72),(41.74,-92.72)], center: (41.74915,-92.7201), images:[#imageLiteral(resourceName: "446")], neutered: false, owner: "None", breed: "American shorthair")
         cats.append(cat1)
@@ -267,12 +321,11 @@ class Cat: NSObject {
         
         completion(cats)
  */
-        
-        
+ 
         let params = [
             "lon": String(lon),
             "lat": String(lat),
-            "dis": "10"
+            "dis": "10000"
         ]
         let urlParams = params.compactMap({ (key, value) -> String in
             return "\(key)=\(value)"
@@ -288,7 +341,7 @@ class Cat: NSObject {
                 return
             }
             print("Got our cats!")
-            
+            //print(String(decoding: data!, as: UTF8.self))
             let result = try? JSONSerialization.jsonObject(with: data!, options: []) as! Array<Dictionary<String, Any>>
             let cats : [Cat] = convert(result: result!)
             
@@ -297,5 +350,6 @@ class Cat: NSObject {
         task.resume()
  
     }
+ 
 
 }

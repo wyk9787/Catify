@@ -23,6 +23,8 @@
 		BF5ECA742168FFBE004DACCF /* CandidateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5ECA732168FFBE004DACCF /* CandidateTableViewCell.swift */; };
 		BF5ECA7621690158004DACCF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5ECA7521690158004DACCF /* DetailViewController.swift */; };
 		BF5ECA7921690493004DACCF /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5ECA7821690493004DACCF /* Cat.swift */; };
+		BF5ECA7B21869361004DACCF /* PhotoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5ECA7A21869361004DACCF /* PhotoTableViewController.swift */; };
+		BF5ECA7D2186940D004DACCF /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5ECA7C2186940D004DACCF /* PhotoTableViewCell.swift */; };
 		CE257FA6F4802CF4A6E9821F /* Pods_CatsNearMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 714CF8C3A45F5608CB9D9C34 /* Pods_CatsNearMeUITests.framework */; };
 		E5EAE3A801C67926E1C8C493 /* Pods_CatsNearMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E038821FA0A438C3459271C3 /* Pods_CatsNearMeTests.framework */; };
 		FE9439D09F551C18E9F5BD5C /* Pods_CatsNearMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2C3A4817E07CBA0EE8362A /* Pods_CatsNearMe.framework */; };
@@ -73,6 +75,8 @@
 		BF5ECA732168FFBE004DACCF /* CandidateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateTableViewCell.swift; sourceTree = "<group>"; };
 		BF5ECA7521690158004DACCF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BF5ECA7821690493004DACCF /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
+		BF5ECA7A21869361004DACCF /* PhotoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewController.swift; sourceTree = "<group>"; };
+		BF5ECA7C2186940D004DACCF /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		CE0B9496829F780078642952 /* Pods-CatsNearMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatsNearMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatsNearMe/Pods-CatsNearMe.release.xcconfig"; sourceTree = "<group>"; };
 		DC2C3A4817E07CBA0EE8362A /* Pods_CatsNearMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CatsNearMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD96A781444799381953A118 /* Pods-CatsNearMeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatsNearMeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatsNearMeUITests/Pods-CatsNearMeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				BF5ECA6F2168F626004DACCF /* MapViewController.swift */,
 				BF5ECA732168FFBE004DACCF /* CandidateTableViewCell.swift */,
 				BF5ECA7521690158004DACCF /* DetailViewController.swift */,
+				BF5ECA7A21869361004DACCF /* PhotoTableViewController.swift */,
+				BF5ECA7C2186940D004DACCF /* PhotoTableViewCell.swift */,
 				BF5ECA7721690480004DACCF /* Models */,
 				BF5ECA3B2168E942004DACCF /* Main.storyboard */,
 				BF5ECA3E2168E948004DACCF /* Assets.xcassets */,
@@ -422,6 +428,8 @@
 				BF5ECA382168E942004DACCF /* AppDelegate.swift in Sources */,
 				BF5ECA7621690158004DACCF /* DetailViewController.swift in Sources */,
 				BF5ECA662168EC6C004DACCF /* CameraViewController.swift in Sources */,
+				BF5ECA7D2186940D004DACCF /* PhotoTableViewCell.swift in Sources */,
+				BF5ECA7B21869361004DACCF /* PhotoTableViewController.swift in Sources */,
 				BF5ECA702168F626004DACCF /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
