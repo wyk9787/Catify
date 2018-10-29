@@ -9,7 +9,7 @@ from flask import jsonify
 from PIL import Image
 import os
 
-catify = Flask(__name__)
+app = Flask(__name__)
 
 generate_data()
 
@@ -28,9 +28,9 @@ saved_lat = 0
 saved_filename = ''
 
 # Constants
-img_folder_dir = 'img/'
+img_folder_dir = '/home/Garrett/Catify/img/'
 
-@catify.route('/newcat', methods=['GET'])
+@app.route('/newcat', methods=['GET'])
 def add_new_cat():
     id = len(cats);
     name = str(request.args.get('name'))
@@ -44,7 +44,7 @@ def add_new_cat():
     os.rename(saved_filename, img_folder_dir + str(id) + '_0.png') 
     return "Success"
 
-@catify.route('/confirm', methods=['GET'])
+@app.route('/confirm', methods=['GET'])
 def confirm_cat():
     id = int(request.args.get('id'))
     lon = saved_lon 
@@ -56,7 +56,7 @@ def confirm_cat():
             + str(len(cats[id].images) - 1) + '.png') 
     return "Cat %d is centered around (%f, %f)" % (id, location['lon'], location['lat'])
 
-@catify.route('/allcats', methods=['GET'])
+@app.route('/allcats', methods=['GET'])
 def all_cats():
     target_cats = []
     lat = request.args.get('lat')
@@ -74,7 +74,7 @@ def all_cats():
     print json.dumps([cat.__dict__ for cat in target_cats])
     return "success"
 
-@catify.route('/similarcats', methods=['POST'])
+@app.route('/similarcats', methods=['POST'])
 def similar_cats():
     global saved_lon, saved_lat, saved_breed, saved_breed_score, saved_color, saved_filename
     img = Image.open(request.files['file'])
@@ -155,10 +155,12 @@ def similar_cats():
     # Serialize to JSON string then sends the response back
     return jsonify([cat[0].__dict__ for cat in target_cats])
     
-@catify.route('/debug', methods=['GET'])
+@app.route('/debug', methods=['GET'])
 def debug():
     test = str(request.args.get('test'))
     return 'hello world! test = {}'.format(test)
 
 if __name__ == '__main__':
-    catify.run()
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/Garrett/credential.json"
+    app.run()
+
