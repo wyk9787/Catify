@@ -66,6 +66,11 @@ class DetailViewController: UIViewController {
             DestVC.center = (cat?.center)!
             DestVC.name = cat?.name
         }
+        
+        if (segue.identifier == "photoSegue") {
+            let DestVC = segue.destination as! PhotoTableViewController
+            DestVC.photos = (cat?.images)!
+        }
     }
     
 }

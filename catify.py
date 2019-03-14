@@ -161,4 +161,6 @@ def debug():
     return 'hello world! test = {}'.format(test)
 
 if __name__ == '__main__':
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/Garrett/credential.json"
     app.run()
+

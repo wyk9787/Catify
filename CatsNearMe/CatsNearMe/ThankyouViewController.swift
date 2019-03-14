@@ -40,11 +40,15 @@ class ThankyouViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if confirm {
             Cat.confirm(id: id) { (success) in
-                self.refresh(success: success)
+                DispatchQueue.main.async {
+                    self.refresh(success: success)
+                }
             }
         } else {
             Cat.newcat(name: name) { (success) in
-                self.refresh(success: success)
+                DispatchQueue.main.async {
+                    self.refresh(success: success)
+                }
             }
         }
         

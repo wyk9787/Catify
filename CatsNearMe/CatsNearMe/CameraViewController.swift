@@ -10,6 +10,17 @@ import UIKit
 import AVFoundation
 import MapKit
 
+extension UIViewController {
+    func dismissKeyBoardWhenTappingAround() {
+        let tap : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(false)
+    }
+}
+
 var result : UIImage?
 var lon : Double = 0
 var lat : Double = 0
@@ -135,8 +146,6 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         if (segue.identifier == "captureSegue") {
             let nav = segue.destination as! UINavigationController
             let DestVC = nav.topViewController as! candidateViewController
-            print(lat)
-            print(lon)
             Cat.findsimilar(lon: lon, lat: lat, color: selectedColor, image: result!) { (cats) in
                 DestVC.candidates = cats
             }
